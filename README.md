@@ -1,3 +1,7 @@
+## Požadavky na spuštění
+- **PHP verze 8.0**
+- Libovolný funkční Databázový server
+
 ## Jak spustit
 
 - pomocí 'Composer install' nainstalujeme veškeré závislosti Laravel Frameworku
@@ -19,3 +23,5 @@ Výchozí hodnota v .env:
 - Poté, co proběhnou migrace (vytvoří se nové tabulky v nastavené databázi) se zavolá seeder
 - Seeder nastavený v adresáři "database/seeders" naplní tabulku **products** daty
 
+
+## Popis projektu
