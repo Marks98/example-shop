@@ -25,3 +25,11 @@ Výchozí hodnota v .env:
 
 
 ## Popis projektu
+
+- **"app/Http/Controllers/Api/ProductsController" - Controller pro správu API, výpis, editace, ukládání API
+- **"app/Http/Models" - Laravel Modely, komunikační vrstva s databází (Tabulkami Products a Product_Histories)
+- **"database/migrations"** - Migrace dvou tabulek (Products a Product_Histories), po spuštění příkazu **migrate** vytvoří nové tabulky
+- **"database/seeders"** - Po zavolání příkazu **migrate** s příznamek *--seed* naplní nově vytvořené tabulky produkty, které se prodávají v e-shopu
+- **"resources/views** - Frontend část webu, .Vue, tailwind načítán přes CDN
+- **"routes"** - Nadefinované routy webu a api, web má pouze jednu routu na homepage
+- **".env"** - Konfigurační soubor laravelu, stačí nastavit pouze Databázi
