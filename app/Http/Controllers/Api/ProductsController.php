@@ -9,8 +9,15 @@ use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
-    public function ProductsList(Request $request)
+    /**
+     * Get list of all products
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function ProductsList(Request $request) : array
     {
+        /** @var Product $products */
         $products = Product::where('state', 'published');
 
         if ($request->get('data')['query']) {
@@ -26,8 +33,15 @@ class ProductsController extends Controller
             ->toArray();
     }
 
-    public function UpdateProduct(Request $request)
+    /**
+     * Update specific product
+     *
+     * @param Request $request
+     * @return string
+     */
+    public function UpdateProduct(Request $request) : string
     {
+        /** @var Product $product */
         $product = Product::where('id', $request->get('product_id'))
             ->first();
 
@@ -44,7 +58,13 @@ class ProductsController extends Controller
         return json_encode(['response' => 'success']);
     }
 
-    public function RemoveProduct(Request $request)
+    /**
+     * Remove specific product
+     *
+     * @param Request $request
+     * @return string
+     */
+    public function RemoveProduct(Request $request) : string
     {
         $this->validate($request, [
             'product_id' => 'required'
@@ -58,7 +78,13 @@ class ProductsController extends Controller
         return json_encode(['response' => 'success']);
     }
 
-    public function ProductPriceHistory(Request $request)
+    /**
+     * Show list of price history
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function ProductPriceHistory(Request $request) : array
     {
         $this->validate($request, [
             'product_id' => 'required'
