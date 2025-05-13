@@ -14,10 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('jwt:api')->group(function (){
-    Route::get('products-list', [\App\Http\Controllers\Api\ItemsController::class, 'ProductsList']);
+Route::middleware('jwt:api')->group(function () {
+    Route::get('products-list', [\App\Http\Controllers\Api\ProductsController::class, 'ProductsList']);
+    Route::get('product-price-history', [\App\Http\Controllers\Api\ProductsController::class, 'ProductPriceHistory']);
 
-    Route::post('update-product', [\App\Http\Controllers\Api\ItemsController::class, 'UpdateProduct']);
+    Route::post('update-product', [\App\Http\Controllers\Api\ProductsController::class, 'UpdateProduct']);
 
-    Route::delete('remove-product', [\App\Http\Controllers\Api\ItemsController::class, 'RemoveProduct']);
+    Route::delete('remove-product', [\App\Http\Controllers\Api\ProductsController::class, 'RemoveProduct']);
 });
