@@ -1,0 +1,180 @@
+openapi: 3.0.3
+info:
+  title: Lišákův obchod – REST API
+  description: API pro správu produktů v obchodě Lišáka Petra.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000/api
+    description: Lokální vývojový server
+
+paths:
+  /products:
+    get:
+      summary: Získat seznam všech produktů
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+          description: Filtr podle názvu produktu
+        - in: query
+          name: min_quantity
+          schema:
+            type: integer
+          description: Minimální počet kusů na skladě
+        - in: query
+          name: max_quantity
+          schema:
+            type: integer
+          description: Maximální počet kusů na skladě
+      responses:
+        '200':
+          description: Seznam produktů
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+    post:
+      summary: Vytvořit nový produkt
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductInput'
+      responses:
+        '201':
+          description: Produkt byl úspěšně vytvořen
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+
+  /products/{id}:
+    get:
+      summary: Získat detail produktu podle ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Detail produktu
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Produkt nenalezen
+    put:
+      summary: Aktualizovat produkt
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductInput'
+      responses:
+        '200':
+          description: Produkt byl úspěšně aktualizován
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Produkt nenalezen
+    delete:
+      summary: Smazat produkt
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Produkt byl úspěšně smazán
+        '404':
+          description: Produkt nenalezen
+
+  /products/{id}/price-history:
+    get:
+      summary: Získat historii cen produktu
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Historie cen produktu
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PriceHistory'
+        '404':
+          description: Produkt nenalezen
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        price:
+          type: number
+          format: float
+        quantity:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    ProductInput:
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: number
+          format: float
+        quantity:
+          type: integer
+      required:
+        - name
+        - price
+        - quantity
+    PriceHistory:
+      type: object
+      properties:
+        id:
+          type: integer
+        product_id:
+          type: integer
+        old_price:
+          type: number
+          format: float
+        new_price:
+          type: number
+          format: float
+        changed_at:
+          type: string
+          format: date-time

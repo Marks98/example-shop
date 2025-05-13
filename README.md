@@ -33,3 +33,4 @@ Výchozí hodnota v .env:
 - **"resources/views** - Frontend část webu, .Vue, tailwind načítán přes CDN
 - **"routes"** - Nadefinované routy webu a api, web má pouze jednu routu na homepage
 - **".env"** - Konfigurační soubor laravelu, stačí nastavit pouze Databázi
+- **"openapi.yaml"** - OpenAPI specifikace
